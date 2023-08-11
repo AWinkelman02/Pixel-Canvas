@@ -1,27 +1,78 @@
-const defaultGridSize = 16;
+const DEFAULTGRIDSIZE = 16;
+const DEFAULTCOLOR = '#658FF1';
+const ERASE = '#FFFFFF';
+
 let cell = [];
+let currentColor = DEFAULTCOLOR;
+let savedColor = DEFAULTCOLOR;
+let gridLineState = false;
+let mouseState = false;
+
 const container = document.querySelector(".grid-container");
 const gridRange = document.querySelector("#grid-range");
 const gridOutput = document.querySelector("#output");
 const clearGridButton = document.querySelector("#clear-grid");
+const resetGridButton = document.querySelector("#reset-grid");
+const toggleGridLines = document.querySelector("#toggle-grid");
+const colorSelected = document.querySelector("#colorPicker");
+const eraseButton = document.querySelector("#erase-mode");
+const colorButton = document.querySelector("#color-mode");
 
-gridOutput.innerHTML = gridRange.value;
+gridOutput.innerHTML = gridRange.value+" X "+gridRange.value;
 
-clearGridButton.addEventListener("click", function(){
+colorSelected.oninput = (e) => {setColor(e.target.value); saveColor(e.target.value); mouseState = true};
+clearGridButton.onclick = () => eraseGrid(gridRange.value);
+eraseButton.onclick = () => setColor(ERASE);
+colorButton.onclick = () => setColor(savedColor);
+document.body.onmousedown = () => mouseStateSet();
+document.body.onmouseup = () => mouseStateSet();
+
+
+function mouseStateSet(){
+    if(mouseState === false){mouseState = true}
+    else{mouseState = false}
+    console.log(mouseState);
+}
+
+//button clears the grid and resets the size to the default 16
+resetGridButton.addEventListener("click", function(){
     clearGrid();
-    createGrid(defaultGridSize);
-    gridRange.value = defaultGridSize;
-    gridOutput.innerHTML = defaultGridSize;
+    createGrid(DEFAULTGRIDSIZE);
+
+    gridRange.value = DEFAULTGRIDSIZE;
+    gridOutput.innerHTML = DEFAULTGRIDSIZE+" X "+DEFAULTGRIDSIZE;
 });
 
-gridRange.addEventListener('input', function(){
-    gridOutput.innerHTML = gridRange.value;
+gridRange.addEventListener('change', function(){
+    gridOutput.innerHTML = gridRange.value+" X "+gridRange.value;
     clearGrid()
     createGrid(gridRange.value);
 }, false);
 
+//grid line toggle
+toggleGridLines.addEventListener('change', ()=>{
+    gridLineCheck();
+    gridLines(gridRange.value);
+});
+
+function setColor(newColor){
+    currentColor = newColor;
+};
+
+function saveColor(newColor){
+    savedColor = newColor
+}
+
 function clearGrid(){
     container.innerHTML = '';
+}
+
+function eraseGrid(squaresPerSide){
+    let numCells = squaresPerSide*squaresPerSide;
+
+    for(let i = 0; i < numCells; i++){
+        cell[i].setAttribute('style', 'background: white;');
+    }
 }
 
 function createGrid(squaresPerSide){
@@ -33,12 +84,44 @@ function createGrid(squaresPerSide){
     for(let i = 0; i < numCells; i++){
         cell[i] = this.document.createElement('div');
         cell[i].className = "cell";
+        cell[i].addEventListener('mousedown', function(e){
+            changeColor(e);
+        })
+        cell[i].addEventListener('mouseover', function(e){
+            if(e.type = 'mouseover' && mouseState){
+                changeColor(e);
+            }
+        })
         container.appendChild(cell[i])
     }
+    gridLines(squaresPerSide);
 }
 
-function colorCell(e){
-    e.target.style.backgroundColor = 'red';
+function changeColor(e){
+    if(mouseState === 'mouseover' && !mouseState) return
+    e.target.style.backgroundColor = currentColor;
 }
 
-createGrid(defaultGridSize);
+//function that checks the state of the checkbox
+//this will be used by other elements to keep the state of the gridlines during a reset
+function gridLineCheck(){
+    if(gridLineState === false){gridLineState = true;}
+    else{gridLineState = false;}
+}
+
+function gridLines(squaresPerSide){
+    let numCells = squaresPerSide*squaresPerSide;
+    if(gridLineState === true){
+        for(let i = 0; i < numCells; i++){
+            cell[i].classList.add("bordered");
+        }
+    }
+    else{
+        for(let i = 0; i < numCells; i++){
+            cell[i].classList.remove("bordered");
+        }
+    }
+
+}
+
+window.onload = () =>{createGrid(DEFAULTGRIDSIZE)};

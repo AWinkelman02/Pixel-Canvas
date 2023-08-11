@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Pixel Canvas</title>
 </head>
 <body>
     <h1>Pixel Canvas</h1>
@@ -12,21 +16,26 @@
         <div class="bx controls">
             <h2>Grid Options</h2>
             <div class="bx color">
-                <input type="color" name="colorPicker" id="colorPicker" value="#808080">
+                <input type="color" name="colorPicker" id="colorPicker" value="#658FF1">
             </div>
             <div class="bx grid-size">
                 <h3>Grid Size</h3>
                 <span id="output"></span>
-                <input type="range" name="gridSize" id="grid-range" min="2" max="100" value="16">
-
-                <button type="button" id="reset-grid">Clear Grid</button>
-                <button type="button" id="clear-grid">Reset Grid</button>
+                <input type="range" name="gridSize" id="grid-range" min="2" max="64" value="16">
                 <div class="bx toggle">
-                    <label for="toggle-grid"><input type="checkbox" class="toggle-grid">Toggle Grid Lines</label>
+                    <div class="checkbox-rect">
+                        <input type="checkbox" id="toggle-grid" name="check">
+                        <label for="toggle-grid">Toggle Grid Lines</label>
+                      </div>
                 </div>
+
+                <button type="button" class="mode" id="color-mode">Color</button>
+                <button type="button" class="mode" id="erase-mode">Erasure</button>
+                <button type="button" id="clear-grid">Clear Grid</button>
+                <button type="button" id="reset-grid">Reset Grid</button>
+
             </div>    
         </div>
-    
         <div class="bx main">
             <div class="bx grid-container"></div>        
         </div>

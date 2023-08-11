@@ -16,7 +16,9 @@ body h1{
 
 .container{
     display: flex;
-    gap: 6vw;
+    gap: 5vw;
+    justify-content: start;
+    text-align: right;
 }
 
 .main{
@@ -56,15 +58,18 @@ body h1{
     background-color: transparent;
     border: none;
     cursor: pointer;
+    user-select: none;
 }
 #colorPicker::-webkit-color-swatch {
     border-radius: 15px;
     border: none;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    user-select: none;
 }
 #colorPicker::-moz-color-swatch {
     border-radius: 15px;
     border: none;
+    user-select: none;
 }
 
 .controls .grid-size{
@@ -82,18 +87,22 @@ body h1{
     background: #030E25;
     outline: none;
     border-radius: 15px;
-    overflow: hidden;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 #grid-range::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #D41D6D;
-    cursor: pointer;
-    border: 2px solid #808080;
-    box-shadow: -407px 0 0 400px #D41D6D;
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-top: -4px; /* Centers thumb on the track */
+    background-color: #808080;
+    border-radius: 0rem;
+    height: 1rem;
+    width: 0.5rem;
+}
+
+#grid-range::-webkit-slider-runnable-track {
+    background-color: #ff427b;
+    border-radius: 0.5rem;
+    height: 0.5rem;
 }
 
 button{
@@ -109,6 +118,7 @@ button{
     cursor: pointer;
     transition: ease-out 0.2s;    
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 85%;
 }
 
 button:hover {
@@ -125,14 +135,6 @@ button:hover {
     justify-content: center;
 }
 
-.toggle-grid{
-
-}
-
-.toggle-grid:checked{
-    background: #D41D6D;
-}
-
 .grid-container{
     border: rgb(155, 155, 155) 1px solid;
     margin: 10px;
@@ -142,14 +144,49 @@ button:hover {
 }
 
 .cell{
+    user-select: none;
+}
+
+.cell.bordered{
     border: rgb(155, 155, 155) .5px solid;
 }
 
-.cell:hover{
-    background-color: aqua;
+
+.checkbox-rect input[type="checkbox"] {
+    display: none;
+}
+.checkbox-rect input[type="checkbox"] + label {
+    display: flex;
+    gap: 1vh;
+
+    margin-bottom: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
-
-
-
-
+.checkbox-rect input[type="checkbox"]:hover + label:before {
+    background: #D41D6D;
+}
+.checkbox-rect input[type="checkbox"] + label:last-child {
+    margin-bottom: 0;
+}
+.checkbox-rect input[type="checkbox"] + label:before {
+    content: "";
+    display: flex;
+    width: 1em;
+    height: 1em;
+    border: 1px solid #343a3f;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: all 0.2s, background 0.2s ease-in-out;
+    background: #f3f3f3;
+}
+.checkbox-rect input[type="checkbox"]:checked + label:before {
+    width: 1em;
+    height: 1em;
+    border-radius: 0.2em;
+    border: 1px solid #000;
+    background: #D41D6D;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
