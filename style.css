@@ -127,6 +127,11 @@ button:hover {
     border-radius: 15px;
 }
 
+button.selected{
+    border: 2px solid #D41D6D;
+    border-radius: 15px;
+}
+
 .toggle{
     color: #030E25;
     font-family: "Poppins",Helvetica,sans-serif;   

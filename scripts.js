@@ -1,12 +1,14 @@
 const DEFAULTGRIDSIZE = 16;
 const DEFAULTCOLOR = '#658FF1';
 const ERASE = '#FFFFFF';
+const DEFAULTMODE = "color";
 
 let cell = [];
 let currentColor = DEFAULTCOLOR;
 let savedColor = DEFAULTCOLOR;
 let gridLineState = false;
 let mouseState = false;
+let cmode = DEFAULTMODE;
 
 const container = document.querySelector(".grid-container");
 const gridRange = document.querySelector("#grid-range");
@@ -22,11 +24,21 @@ gridOutput.innerHTML = gridRange.value+" X "+gridRange.value;
 
 colorSelected.oninput = (e) => {setColor(e.target.value); saveColor(e.target.value); mouseState = true};
 clearGridButton.onclick = () => eraseGrid(gridRange.value);
-eraseButton.onclick = () => setColor(ERASE);
-colorButton.onclick = () => setColor(savedColor);
+eraseButton.onclick = () => {setColor(ERASE); cmode = "erase"; colorMode(cmode)};
+colorButton.onclick = () => {setColor(savedColor); cmode = "color"; colorMode(cmode)};
 document.body.onmousedown = () => mouseStateSet();
 document.body.onmouseup = () => mouseStateSet();
 
+function colorMode(mode){
+    if(mode === "color"){
+        colorButton.classList.add("selected");
+        eraseButton.classList.remove("selected");
+    }
+    else{
+        colorButton.classList.remove("selected");
+        eraseButton.classList.add("selected");
+    }
+}
 
 function mouseStateSet(){
     if(mouseState === false){mouseState = true}
@@ -124,4 +136,4 @@ function gridLines(squaresPerSide){
 
 }
 
-window.onload = () =>{createGrid(DEFAULTGRIDSIZE)};
+window.onload = () =>{createGrid(DEFAULTGRIDSIZE); colorMode(cmode)};
