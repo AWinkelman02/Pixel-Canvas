@@ -22,7 +22,7 @@ const colorButton = document.querySelector("#color-mode");
 
 gridOutput.innerHTML = gridRange.value+" X "+gridRange.value;
 
-colorSelected.oninput = (e) => {setColor(e.target.value); saveColor(e.target.value); mouseState = true};
+colorSelected.oninput = (e) => {setColor(e.target.value); saveColor(e.target.value); mouseState = false};
 clearGridButton.onclick = () => eraseGrid(gridRange.value);
 eraseButton.onclick = () => {setColor(ERASE); cmode = "erase"; colorMode(cmode)};
 colorButton.onclick = () => {setColor(savedColor); cmode = "color"; colorMode(cmode)};

@@ -25,8 +25,8 @@ body h1{
     background-color: white;
     border-radius: 15px;
     padding: 15px;
-    height: 60vh;
-    width: 60vh;
+    width: clamp(460px, 60vh, 780px);
+    height: clamp(460px, 60vh, 780px); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,13 +35,16 @@ body h1{
 
 .controls{
     background-color: white;
-    width: 10vw;
+    padding: 15px;
+    width: clamp(173px, 10vw, 245px); 
+    height: clamp(460px, 60vh, 780px); 
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    gap: 4px;
 }
 
 .controls h2{
@@ -53,8 +56,8 @@ body h1{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 100px;
-    height: 100px;
+    width: clamp(80px, 10vw, 100px);
+    height: clamp(80px, 10vw, 100px);
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -73,13 +76,17 @@ body h1{
 }
 
 .controls .grid-size{
+    height: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 2vh;
+    justify-content: space-evenly;
     align-items: center;
     color: #030E25;
     font-family: "Poppins",Helvetica,sans-serif;  
+}
+
+.grid-size h3{
+    margin: 3px;
 }
 
 #grid-range{
@@ -111,14 +118,16 @@ button{
     background-color: #658FF1;
     border: 2px solid #8FB3FF;
     border-radius: 0px;
-    padding: 13px 20px;
+    padding: 8px;
     display: inline-block;
-    font-size: 14px;
+    font-size: 1em;
     letter-spacing: 1px;
     cursor: pointer;
     transition: ease-out 0.2s;    
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    width: 85%;
+    width: 90%;
+    height: auto;
+    text-align: center;
 }
 
 button:hover {
@@ -138,7 +147,10 @@ button.selected{
     align-items: center; 
     display: flex;
     justify-content: center;
+    font-size: 1em;
+    text-align: center;
 }
+
 
 .grid-container{
     border: rgb(155, 155, 155) 1px solid;
@@ -162,7 +174,7 @@ button.selected{
 }
 .checkbox-rect input[type="checkbox"] + label {
     display: flex;
-    gap: 1vh;
+    gap: 1rem;
 
     margin-bottom: 20px;
     cursor: pointer;
